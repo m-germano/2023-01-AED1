@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void selectionSort(int array[], const int n) {
+int i, j, min_index, temp;
+for (i = 0; i < n-1; i++) {
+min_index = i;
+for (j = i+1; j < n; j++) {
+if (array[j] < array[min_index]) {
+min_index = j;
+}
+}
+temp = array[min_index];
+array[min_index] = array[i];
+array[i] = temp;
+}
+}
+
+int main() {
+int n;
+printf("Informe o valor de n: ");
+scanf("%d", &n);
+int array[n];
+srand(time(NULL));
+for (int i = 0; i < n; i++) {
+array[i] = rand() % 100;
+}
+
+clock_t start_time, end_time;
+double total_time;
+
+start_time = clock();
+
+selectionSort(array, n);
+
+end_time = clock();
+
+total_time = ((double) (end_time - start_time)) / (CLOCKS_PER_SEC / 1000);
+
+printf("Array aleatório em ordem crescente: ");
+for (int i = 0; i < n; i++) {
+    printf("%d ", array[i]);
+}
+
+printf("\nTempo de execução do código (em milissegundos): %f", total_time);
+
+return 0;
+}
