@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+//Definindo uma estrutura No do tipo struct no, que faz alusao aos nos que serao adicionados ou removidos da lista
+typedef struct no{
+int valor;
+struct No *proximo;
+}No;
+
+/*Definindo uma estrutura Lista do tipo struct, que sera o elemento
+que apontara para o primeiro no da lista. Ela possui um ponteiro de inicio
+e a variavel inteira `tam` que diz o tamanho da lista */
+
+typedef struct{
+No *inicio;
+int tam;
+
+}Lista;
+
+//Insercao no Inicio da lista
+
+void inserirInicio(Lista *li, int valor){
+No *novo = (No*)malloc(sizeof(No));
+novo -> valor = valor; //(*novo).valor = valor
+novo -> proximo = li -> inicio;
+li -> inicio = novo;
+li -> tam++;
+
+
+}
+
+//Inserir no final da lista
+
+void inserirFim(Lista *li, int valor){
+
+No *no, *novo = (No*) malloc(sizeof(No));
+novo -> valor = valor;
+novo -> proximo = NULL;
+if(li -> inicio == NULL){
+    li -> inicio = novo;
+
+}
+else{
+    no = li->inicio;
+    while(no -> proximo != NULL){
+        no = no -> proximo;
+    }
+    no->proximo = novo;
+
+
+}
+li->tam++;
+
+}
+
+//imprimir a lista
+
+void imprimir(Lista *li){
+  No *inicio = li -> inicio;
+  while(inicio != NULL){
+
+    printf("%d  ", inicio->valor);
+    inicio = inicio -> proximo;
+  }
+    printf("\n\n");
+}
+
+
+
+int main(){
+
+int opcao, valor;
+
+
+
+Lista li;
+
+li.inicio=NULL;
+li.tam=0;
+
+
+do{
+    printf("1 - Inserir no inicio\n\n2 - Imprimir\n\n3 - Inserir no Final\n\n5 - Sair\n\n");
+    scanf("%d", &opcao);
+
+    switch(opcao){
+case 1:
+    printf("Digite um valor a ser inserido: ");
+    scanf("%d", &valor);
+    inserirInicio(&li, valor);
+    break;
+
+case 2:
+    imprimir(&li);
+    break;
+case 3:
+     printf("Digite um valor a ser inserido: ");
+    scanf("%d", &valor);
+     inserirFim(&li, valor);
+case 5:
+    printf("Finalizando\n");
+    break;
+default:
+        printf("Opcao Invalida!\n");
+    }
+
+}while(opcao !=5);
+
+
+return 0;
+}
+
